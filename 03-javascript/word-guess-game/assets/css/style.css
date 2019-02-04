@@ -1,0 +1,70 @@
+body {
+  background-color: rgb(185, 185, 185);
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 700px;
+  padding: 30px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+header {
+  display: flex;
+}
+
+hr {
+  margin: 30px 0;
+}
+
+.image-logo {
+  height: 100%;
+  margin-right: 1rem;
+  max-height: 100px;
+  max-width: 100px;
+  width: 100%;
+}
+
+.image-snail {
+  float: right;
+  margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+}
+
+.current-word {
+  line-height: 5rem;
+  margin: 50px 0;
+  text-align: center;
+}
+
+.current-word span {
+  border-bottom: 3px solid #333;
+  color: rgba(51, 51, 51, 0);
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 10px;
+  min-width: 35px;
+  padding: 10px;
+}
+
+.current-word span.show {
+  color: #333;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rock Paper Scissors</title>
+    <style>
+      /* Game Styles */
+      body {
+        color: #333;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+      span {
+        color: #73408f;
+        font-weight: bold;
+      }
+      #game {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- The Game -->
+    <div id="game-container">
+      <h1>Rock Paper Scissors Game</h1>
+      <hr />
+      <p id="instructions">
+        Press <strong>R</strong>, <strong>P</strong>, or <strong>S</strong> to get started!
+      </p>
+
+      <div id="game">
+        <p>You chose: <span data-target="userResponse"></span></p>
+        <p>The computer chose: <span data-target="computerResponse"></span></p>
+        <hr />
+        <p>Wins: <span data-target="wins"></span></p>
+        <p>Losses: <span data-target="losses"></span></p>
+        <p>Ties: <span data-target="ties"></span></p>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // Keypress choices
+      const choices = ["r", "p", "s"];
+
+      // HTML references
+      let userResponse = document.querySelector('[data-target="userResponse"]');
+      let computerResponse = document.querySelector('[data-target="computerResponse"]');
+      let wins = document.querySelector('[data-target="wins"]');
+      let losses = document.querySelector('[data-target="losses"]');
+      let ties = document.querySelector('[data-target="ties"]');
+
+      // Set initial counts to 0
+      wins.innerHTML = 0;
+      losses.innerHTML = 0;
+      ties.innerHTML = 0;
+
+      // Initialize the game (hide instructions/display game)
+      function startGame() {
+        document.getElementById("instructions").style.display = "none";
+        document.getElementById("game").style.display = "block";
+      }
+
+      // Turn keypress into plain english
+      function displayChoice(player, choice) {
+        if (choice === "r") {
+          player.innerHTML = "Rock";
+        } else if (choice === "p") {
+          player.innerHTML = "Paper";
+        } else if (choice === "s") {
+          player.innerHTML = "Scissors";
+        }
+      }
+
+      // Whenever a key is pressed...
+      document.onkeypress = function(choice) {
+        let charCode = choice.keyCode || choice.which; // gets keyCode value
+        let userChoice = String.fromCharCode(charCode); // returns a string like 'r', 's', or 'p'
+        let computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+        // Function that determines and displays score
+        function displayScore() {
+          if (
+            (userChoice === "r" && computerChoice === "s") ||
+            (userChoice === "p" && computerChoice === "r") ||
+            (userChoice === "s" && computerChoice === "p")
+          ) {
+            wins.innerHTML++;
+          } else if (userChoice === computerChoice) {
+            ties.innerHTML++;
+          } else {
+            losses.innerHTML++;
+          }
+        }
+
+        // Loop through choices
+        for (let i = 0; i < choices.length; i++) {
+          // Only run game if keypress matches choices
+          if (userChoice === choices[i]) {
+            startGame();
+
+            // display the user's choice
+            displayChoice(userResponse, userChoice);
+
+            // display the computer's choice
+            displayChoice(computerResponse, computerChoice);
+
+            // display results (wins, losses, ties)
+            displayScore();
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

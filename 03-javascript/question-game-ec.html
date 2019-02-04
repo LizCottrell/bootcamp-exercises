@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Question Game</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      .text-large {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Question Game</h1>
+    <p>Try to answer all 10 questions correctly!</p>
+    <p>
+      Instructions: press <strong>T</strong> for true and <strong>F</strong> for
+      false.
+    </p>
+    <hr />
+    <p class="text-large" data-target="question"></p>
+    <p>Score: <span data-target="score"></span></p>
+    <script>
+      // array of questions for our quiz game
+      //=============================
+      const quiz = [
+        { q: "The sky is blue.", a: true },
+        { q: "Edith is a dog.", a: true },
+        { q: "Edith likes fish.", a: true },
+        { q: "Edith is blue.", a: false },
+        { q: "Edith has teeth.", a: true },
+        { q: "Edith has bad breath.", a: false },
+        { q: "Edith should be alive.", a: false },
+        { q: "Edith's life has meaning.", a: false },
+        { q: "We should have adopted Edith.", a: true },
+        { q: "Edith is smarter than you.", a: false }
+      ];
+
+      // variables
+      //=============================
+      let score = document.querySelector("[data-target='score']");
+      let question = document.querySelector("[data-target='question']");
+      let total = 0; //
+      let quizIndex = 0;
+
+      // functions
+      //=============================
+      function renderQuestion() {
+        if (quizIndex < quiz.length) {
+          question.innerHTML = quiz[quizIndex].q;
+        } else {
+          question.innerHTML = "Game Over!";
+          score.innerHTML =
+            "You got " + total + " out of " + quiz.length + " correct.";
+        }
+      }
+
+      function updateScore() {
+        score.innerHTML = total;
+      }
+
+      // main process
+      //=============================
+
+      // initialize game
+      renderQuestion();
+      updateScore();
+
+      // listen for keypress
+      document.onkeyup = function(event) {
+        if (quizIndex === quiz.length) {
+          return;
+        }
+
+        let key = event.key.toLowerCase();
+
+        if (key === "t" || key === "f") {
+          if (
+            (quiz[quizIndex].a === true && key === "t") ||
+            (quiz[quizIndex].a === false && key === "f")
+          ) {
+            alert("You are correct! Click okay for the next question");
+            total++;
+            updateScore();
+          } else {
+            alert("WRONG. Next question..");
+          }
+          quizIndex++;
+          renderQuestion();
+        }
+      };
+    </script>
+  </body>
+</html>
