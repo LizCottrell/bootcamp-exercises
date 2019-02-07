@@ -6,18 +6,21 @@ const words = [
   "Bearded",
   "KillsRats",
   "Squirrel",
-  "Treats"
+  "Treats",
+  "Bruff"
 ];
 
 //===== variables
 //============================
 
-let score = document.querySelector("[data-target='score']");
+let winCount = document.querySelector("[data-target='winCount']");
+let lossCount = document.querySelector("[data-target='lossCount']");
 let currentWord = document.querySelector("[data-target='currentWord']");
 let guesses = document.querySelector("[data-target='guesses']");
 let letters = document.querySelector("[data-target='letters']");
 
 let wins = 0;
+let losses = 0;
 let remainingGuesses;
 let letterList = [];
 let word;
@@ -42,16 +45,20 @@ function startGame() {
   }
 }
 
-function logGuess() {
+function resetGame() {
+  updateScore();
+  letterList = [];
+  updateLetterList();
+  currentWord.innerHTML = "";
+  startGame();
+}
+
+function handleGuess() {
   remainingGuesses--;
   updateRemainingGuesses();
   if (remainingGuesses === 0) {
-    wins--;
-    updateScore();
-    letterList = [];
-    updateLetterList();
-    currentWord.innerHTML = "";
-    startGame();
+    losses++;
+    resetGame();
   }
 }
 
@@ -60,7 +67,8 @@ function updateRemainingGuesses() {
 }
 
 function updateScore() {
-  score.innerHTML = wins;
+  winCount.innerHTML = wins;
+  lossCount.innerHTML = losses;
 }
 
 function updateLetterList(letter) {
@@ -90,32 +98,41 @@ startGame();
 updateScore();
 
 document.onkeyup = function(event) {
-  let key = event.key.toUpperCase();
+  let letter = event.key.toUpperCase();
 
   // don't run program if letter was already guessed
-  if (letterList.includes(key)) {
-    logGuess();
-  } else if (isAlpha(key)) {
-    // only run program if keypress is a letter
-    // if key press is any of the letters, show those letters
-    if (word.indexOf(key) > -1) {
-      // find the indexOf(key)
-      let indices = [];
+  if (letterList.includes(letter)) {
+    handleGuess();
+  } else if (isAlpha(letter)) {
+    // if the letter is in the word...
+    if (word.indexOf(letter) > -1) {
+      let letterIndexes = [];
+      // find the location of the letter in the word
       for (let i = 0; i < word.length; i++) {
-        if (word[i] === key) indices.push(i);
+        if (word[i] === letter) letterIndexes.push(i);
       }
-      // show the relevant span(s)
+      // show the relevant span(s) based on the indexes
       let spans = document.querySelectorAll("[data-target='currentWord'] span");
-      for (let i = 0; i < indices.length; i++) {
-        spans[indices[i]].classList.add("show");
+      for (let i = 0; i < letterIndexes.length; i++) {
+        spans[letterIndexes[i]].classList.add("show");
       }
-      // add key to letter list
-      updateLetterList(key);
+      // add letter to letter list
+      updateLetterList(letter);
+
+      var visibleLetters = document.getElementsByClassName("show");
+      var alertDelay = 250; // quarter of a second
+      if (visibleLetters.length === word.length) {
+        setTimeout(function() {
+          wins++;
+          alert("You win! Bruff.");
+          resetGame();
+        }, alertDelay);
+      }
     } else {
-      // add key to letter list
-      updateLetterList(key);
+      // add letter to letter list
+      updateLetterList(letter);
       // subtract a turn
-      logGuess();
+      handleGuess();
     }
   }
 };
