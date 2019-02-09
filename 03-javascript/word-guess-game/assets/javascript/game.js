@@ -1,3 +1,70 @@
+class WordGuessGame {
+  startGame() {
+    // pick a random word from the list
+    word = words[Math.floor(Math.random() * words.length)].toUpperCase();
+    // reset guesses
+    remainingGuesses = 8;
+    updateRemainingGuesses();
+    // display word
+    for (let i = 0; i < word.length; i++) {
+      let span = document.createElement("span");
+      let node = document.createTextNode(word[i]);
+      span.appendChild(node);
+      currentWord.appendChild(span);
+      console.log(word.charAt(i));
+    }
+  }
+
+  resetGame() {
+    updateScore();
+    letterList = [];
+    updateLetterList();
+    currentWord.innerHTML = "";
+    startGame();
+  }
+
+  handleGuess() {
+    remainingGuesses--;
+    updateRemainingGuesses();
+    if (remainingGuesses === 0) {
+      losses++;
+      resetGame();
+    }
+  }
+
+  updateRemainingGuesses() {
+    guesses.innerHTML = remainingGuesses;
+  }
+
+  updateScore() {
+    winCount.innerHTML = wins;
+    lossCount.innerHTML = losses;
+  }
+
+  updateLetterList(letter) {
+    // TODO: check to see if letter already exists
+    letterList.push(letter);
+    exportedLetterList = letterList.join(" ");
+    letters.innerHTML = exportedLetterList;
+  }
+
+  isAlpha() {
+    var charCode = event.keyCode;
+    if (
+      (charCode > 64 && charCode < 91) ||
+      (charCode > 96 && charCode < 123) ||
+      charCode == 8
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+//===== variables
+//============================
+
 const words = [
   "Edith",
   "Fish",
@@ -10,9 +77,6 @@ const words = [
   "Bruff"
 ];
 
-//===== variables
-//============================
-
 let winCount = document.querySelector("[data-target='winCount']");
 let lossCount = document.querySelector("[data-target='lossCount']");
 let currentWord = document.querySelector("[data-target='currentWord']");
@@ -24,72 +88,6 @@ let losses = 0;
 let remainingGuesses;
 let letterList = [];
 let word;
-
-//===== functions
-//============================
-
-function startGame() {
-  // pick a random word from the list
-  word = words[Math.floor(Math.random() * words.length)].toUpperCase();
-  // reset guesses
-  remainingGuesses = 8;
-  updateRemainingGuesses();
-
-  // display word
-  for (let i = 0; i < word.length; i++) {
-    let span = document.createElement("span");
-    let node = document.createTextNode(word[i]);
-    span.appendChild(node);
-    currentWord.appendChild(span);
-    console.log(word.charAt(i));
-  }
-}
-
-function resetGame() {
-  updateScore();
-  letterList = [];
-  updateLetterList();
-  currentWord.innerHTML = "";
-  startGame();
-}
-
-function handleGuess() {
-  remainingGuesses--;
-  updateRemainingGuesses();
-  if (remainingGuesses === 0) {
-    losses++;
-    resetGame();
-  }
-}
-
-function updateRemainingGuesses() {
-  guesses.innerHTML = remainingGuesses;
-}
-
-function updateScore() {
-  winCount.innerHTML = wins;
-  lossCount.innerHTML = losses;
-}
-
-function updateLetterList(letter) {
-  // TODO: check to see if letter already exists
-  letterList.push(letter);
-  exportedLetterList = letterList.join(" ");
-  letters.innerHTML = exportedLetterList;
-}
-
-function isAlpha() {
-  var charCode = event.keyCode;
-  if (
-    (charCode > 64 && charCode < 91) ||
-    (charCode > 96 && charCode < 123) ||
-    charCode == 8
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 //===== main process
 //============================
