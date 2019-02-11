@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>jQuery Calculator</title>
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Added a link to Bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <!-- Jumbotron for Title -->
+    <div class="jumbotron">
+      <h1 class="text-center">jQuery Calculator</h1>
+      <h3 class="text-center">Perform basic mathematic operations using the power of jQuery!</h3>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <!-- Calculator Card -->
+        <div class="col-lg-4">
+          <div class="card">
+            <h3 class="card-header">Calculator</h3>
+
+            <div class="card-body">
+              <button id="button-1" class="btn btn-primary number" value="1"><h1>1</h1></button>
+              <button id="button-2" class="btn btn-primary number" value="2"><h1>2</h1></button>
+              <button id="button-3" class="btn btn-primary number" value="3"><h1>3</h1></button>
+              <button id="button-plus" class="btn btn-danger operator" value="plus">
+                <h1>+</h1>
+              </button>
+              <br /><br />
+              <button id="button-4" class="btn btn-primary number" value="4"><h1>4</h1></button>
+              <button id="button-5" class="btn btn-primary number" value="5"><h1>5</h1></button>
+              <button id="button-6" class="btn btn-primary number" value="6"><h1>6</h1></button>
+              <button id="button-minus" class="btn btn-danger operator" value="minus">
+                <h1>&minus;</h1>
+              </button>
+              <br /><br />
+              <button id="button-7" class="btn btn-primary number" value="7"><h1>7</h1></button>
+              <button id="button-8" class="btn btn-primary number" value="8"><h1>8</h1></button>
+              <button id="button-9" class="btn btn-primary number" value="9"><h1>9</h1></button>
+              <button id="button-multiply" class="btn btn-danger operator" value="times">
+                <h1>&times;</h1>
+              </button>
+              <br /><br />
+              <button id="button-0" class="btn btn-primary number" value="0"><h1>0</h1></button>
+              <button id="button-divide" class="btn btn-danger operator" value="divide">
+                <h1>&divide;</h1>
+              </button>
+              <button id="button-power" class="btn btn-danger operator" value="power">
+                <h1>^</h1>
+              </button>
+              <button id="button-equal" class="btn btn-success equal" value="equals">
+                <h1>=</h1>
+              </button>
+              <br /><br />
+              <button id="button-clear" class="btn btn-dark clear" value="clear">
+                <h1>clear</h1>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Card -->
+        <div class="col-lg-6">
+          <div class="card">
+            <h3 class="card-header">Result</h3>
+            <div class="card-body">
+              <h1 id="first-number"></h1>
+              <h1 id="operator"></h1>
+              <h1 id="second-number"></h1>
+              <hr />
+              <h1 id="result"></h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // state
+        var numOne = 0;
+        var numTwo = 0;
+        var operator = "";
+        var result = 0;
+        var isOperatorChosen = false;
+        var isCalculated = false;
+
+        // 1. initialize calculator
+        function initializeCalculator() {
+          numOne = "";
+          numTwo = "";
+          operator = "";
+          isOperatorChosen = false;
+          isCalculated = false;
+
+          $("#first-number, #second-number, #operator, #result").empty();
+        }
+
+        // 2. listen for number clicks (keep adding numbers until operator)
+        $(".number").on("click", function() {
+          var num = $(this).attr("value");
+
+          if (isOperatorChosen === false) {
+            var wholeNum = $("#first-number").text() + num;
+            $("#first-number").text(wholeNum);
+            numOne = parseInt(wholeNum);
+          } else if (isOperatorChosen === true && isCalculated === false) {
+            var wholeNum = $("#second-number").text() + num;
+            $("#second-number").text(wholeNum);
+            numTwo = parseInt(wholeNum);
+          }
+        });
+
+        // 3. listen for operator click
+        $(".operator").click(function() {
+          if (isOperatorChosen === false) {
+            isOperatorChosen = true;
+            operator = $(this).attr("value");
+            $("#operator").text(operator);
+          }
+        });
+
+        // 4. listen for equals click
+        $("#button-equal").click(function() {
+          if (isOperatorChosen === true && isCalculated === false) {
+            isCalculated = true;
+            result = calculateResult(numOne, numTwo, operator);
+            // display result
+            $("#result").text(result);
+          }
+        });
+
+        // 5. calculate total
+        function calculateResult(one, two, op) {
+          switch (op) {
+            case "plus":
+              calc = function(a, b) {
+                return a + b;
+              };
+              break;
+            case "minus":
+              calc = function(a, b) {
+                return a - b;
+              };
+              break;
+            case "times":
+              calc = function(a, b) {
+                return a * b;
+              };
+              break;
+            case "divide":
+              calc = function(a, b) {
+                return a / b;
+              };
+              break;
+            case "power":
+              calc = function(a, b) {
+                return Math.pow(a, b);
+              };
+              break;
+          }
+          var total = calc(one, two);
+          return total;
+        }
+
+        // 6. clear
+        $("#button-clear").click(function() {
+          initializeCalculator();
+        });
+
+        // MY PSUEDOCODE:
+        // start by displaying the values on the page
+        // listen for number clicks (keep adding numbers until operator)
+        // listen for operator click
+        // listen for number clicks
+        // wait for equals click
+        // calculate total
+        // display result
+        // configure clear
+      });
+    </script>
+  </body>
+</html>

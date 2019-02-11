@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Correct Color Picker</title>
+
+    <!-- Bootstrap File -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <style>
+      #rand-target-color,
+      #color-picker li {
+        font-size: 24px;
+      }
+
+      .color {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Correct Color Picker</h2>
+      <p>Pick the <b>color</b> of the word shown from the list below it.</p>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <!-- Create random target color -->
+            <span id="rand-target-color"> </span>
+          </h3>
+        </div>
+        <div class="card-body">
+          <!-- Create colors to pick -->
+          <ul class="list-unstyled" id="color-picker"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        // Variables
+        var colors = [
+          "brown",
+          "blue",
+          "magenta",
+          "teal",
+          "coral",
+          "black",
+          "thistle",
+          "orchid",
+          "tomato",
+          "firebrick",
+          "gold",
+          "darkturquoise",
+          "limegreen"
+        ];
+        var colorsOfText = [];
+        var word = $("#rand-target-color");
+        var wordList = $("#color-picker");
+        var userAnswer;
+
+        // Shuffle algorithm function
+        function shuffle(array) {
+          var currentIndex = array.length,
+            temporaryValue,
+            randomIndex;
+          while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+          }
+          return array;
+        }
+
+        // Pick random word
+        function randColor() {
+          var randomColor = colors[Math.floor(Math.random() * colors.length)];
+          word.text(randomColor).css("color", randomColor);
+        }
+
+        // Game logic
+        function createColorPicker() {
+          shuffle(colors);
+
+          colorsOfText = colors.slice();
+          colorsOfText = shuffle(colorsOfText);
+
+          var newEl = "<li class='color'></li>";
+          for (i = 0; i < colors.length; i++) {
+            wordList.append(
+              $(newEl)
+                .text(colors[i])
+                .css("color", colorsOfText[i])
+                .attr("id", colors[i])
+            );
+          }
+        }
+
+        // Clear the divs and arrays upon each round.
+        function clear() {
+          $("#rand-target-color").empty();
+          $("#color-picker").empty();
+          colorsOfText = [];
+        }
+
+        // Function for resetting colors and setting new colors.
+        function reset() {
+          clear();
+          randColor();
+          createColorPicker();
+        }
+
+        $("#color-picker").click(function(event) {
+          userAnswer = event.target.id;
+          if (userAnswer === $(word).text()) {
+            alert("You win!");
+            reset();
+          } else {
+            alert("Nope.");
+            reset();
+          }
+        });
+
+        // Run game
+        reset();
+      });
+    </script>
+  </body>
+</html>
