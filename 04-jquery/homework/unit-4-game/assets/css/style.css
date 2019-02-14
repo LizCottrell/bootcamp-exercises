@@ -1,0 +1,62 @@
+/* backgrounds */
+.bg-purple {
+  background: rgba(201, 177, 255, 0.5);
+}
+.bg-pink {
+  background: rgba(255, 202, 242, 0.5);
+}
+.bg-red {
+  background: rgba(255, 178, 177, 0.5);
+}
+.bg-yellow {
+  background: rgba(255, 243, 173, 0.5);
+}
+.bg-green {
+  background: rgba(188, 255, 188, 0.5);
+}
+.bg-blue {
+  background: rgba(162, 237, 255, 0.5);
+}
+
+/* bootstrap overrides */
+.container {
+  max-width: 700px;
+}
+
+.box {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 30px;
+  padding: 30px;
+}
+
+/* global styles */
+body {
+  background-color: #cccccc;
+  background: url("../images/background.jpg") center no-repeat;
+  background-size: 100% 100%;
+  color: #333;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 16px;
+  padding: 50px 100px;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.crystals {
+  display: flex;
+  justify-content: space-around;
+}
+
+.crystals img {
+  max-height: 150px;
+  max-width: 150px;
+  width: 100%;
+  height: 100%;
+}

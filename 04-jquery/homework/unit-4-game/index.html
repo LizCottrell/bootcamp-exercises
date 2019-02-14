@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Crystal Collector</title>
+
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+    <!-- JS -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.jss"
+    ></script>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row box bg-purple game-title">
+        <h1>Crystal Collector</h1>
+      </div>
+
+      <div class="row box bg-pink game-instructions">
+        <ul>
+          <li>You will be given a random number at the start of the game.</li>
+          <li>
+            There are four crystals below. By clicking on a crystal you will add
+            a specific amount of points to your total score.
+          </li>
+          <li>
+            You win the game by matching your total score to random number, you
+            lose the game if your total score goes above the random number.
+          </li>
+          <li>
+            The value of each crystal is hidden from you until you click on it.
+          </li>
+          <li>
+            Each time when the game starts, the game will change the values of
+            each crystal.
+          </li>
+        </ul>
+      </div>
+      <div class="row ">
+        <div class="col-md mr-3 box bg-red game-total">
+          <p data-target="total"></p>
+        </div>
+        <div class="col-md ml-3 box bg-yellow game-history">
+          <p>Wins: <span data-target="wins"></span></p>
+          <p>Loses: <span data-target="losses"></span></p>
+        </div>
+      </div>
+      <div class="row box bg-green crystals">
+        <img data-target="crystal1" src="assets/images/crystal-green.png" />
+        <img data-target="crystal2" src="assets/images/crystal-white.png" />
+        <img data-target="crystal3" src="assets/images/crystal-violet.png" />
+        <img data-target="crystal4" src="assets/images/crystal-pink.png" />
+      </div>
+      <div class="row box bg-blue game-result">
+        <p>Your total score is: <span data-target="score"></span></p>
+      </div>
+    </div>
+  </body>
+</html>
