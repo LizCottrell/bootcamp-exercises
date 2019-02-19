@@ -521,20 +521,24 @@ var unsortedArr = [
 var thing = [1, 326, 251, 24, 284, 364, 287, 74];
 
 function sortArray(arr) {
-  var sortedArray = [];
-
   for (let i = 0; i < arr.length; i++) {
-    var a = i;
-    var b = i + 1;
-    if (a < b) {
-      sortedArray.push(a);
-    } else {
-      sortedArray.push(b);
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j - 1] > arr[j]) {
+        let temp = arr[j - 1];
+        arr[j - 1] = arr[j];
+        arr[j] = temp;
+      }
     }
   }
-
-  return sortedArray;
 }
 
-console.log(sortArray(unsortedArr));
+function doTheThing() {
+  var sortedArray = sortArray(unsortedArr);
+  document.getElementById("result").innerHTML = sortedArray;
+}
+
+document.getElementById("start").innerHTML = unsortedArr;
+document.getElementById("go").addEventListener("click", doTheThing);
+
+// console.log(sortArray(unsortedArr));
 console.log(sortArray(thing));
