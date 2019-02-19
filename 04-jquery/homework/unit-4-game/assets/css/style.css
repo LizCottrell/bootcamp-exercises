@@ -24,11 +24,16 @@
 }
 
 .box {
+  align-content: center;
   border: none;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-bottom: 30px;
   padding: 30px;
+  transition: all 0.2s ease;
 }
 
 /* global styles */
@@ -49,14 +54,39 @@ h1 {
   text-transform: uppercase;
 }
 
+.game-instructions {
+  font-size: 0.9em;
+}
+
+.game-number {
+  font-size: 4em;
+  text-align: center;
+}
+
+.game-result p {
+  font-size: 2em;
+}
+
 .crystals {
   display: flex;
   justify-content: space-around;
+}
+
+.crystal {
+  align-content: center;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.crystal:hover,
+.crystal:focus {
+  background: rgba(134, 183, 134, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.19);
 }
 
 .crystal img {
   max-height: 150px;
   max-width: 150px;
   width: 100%;
-  height: 100%;
 }
