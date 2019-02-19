@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Prime Checker</h1>
+    <script>
+      function checkPrime(x) {
+        var divisible = [];
+        for (let i = 2; i < x; i++) {
+          if (x % i === 0) {
+            divisible.push(i);
+          }
+        }
+        return divisible.length === 0 ? true : false;
+      }
+      console.log(checkPrime(7));
+      console.log(checkPrime(31));
+      console.log(checkPrime(51));
+      console.log(checkPrime(101));
+      console.log(checkPrime(13));
+    </script>
+  </body>
+</html>

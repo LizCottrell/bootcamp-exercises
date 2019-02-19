@@ -2,10 +2,10 @@
 
 //  This code will run as soon as the page loads.
 window.onload = function() {
-  $("#lap").on("click", recordLap);
-  $("#stop").on("click", stop);
-  $("#reset").on("click", reset);
-  $("#start").on("click", start);
+  $('#lap').on('click', recordLap);
+  $('#stop').on('click', stop);
+  $('#reset').on('click', reset);
+  $('#start').on('click', start);
 };
 
 //  Variable that will hold our setInterval that runs the stopwatch
@@ -16,14 +16,12 @@ var clockRunning = false;
 var time = 0;
 var lap = 1;
 
-start();
-
 function reset() {
   time = 0;
   lap = 1;
 
   //  TODO: Change the "display" div to "00:00."
-  $("#display").text("00:00");
+  $('#display').text('00:00');
 }
 
 function start() {
@@ -34,9 +32,9 @@ function start() {
   }
 }
 function stop() {
-  //  TODO: Use clearInterval to stop the count here and set the clock to not be running.
   clearInterval(intervalId);
   clockRunning = false;
+  //  TODO: Use clearInterval to stop the count here and set the clock to not be running.
 }
 
 function recordLap() {
@@ -44,23 +42,18 @@ function recordLap() {
   //        and save the result in a variable.
   //  TODO: Add the current lap and time to the "laps" div.
   //  TODO: Increment lap by 1. Remember, we can't use "this" here.
-  time = new Date();
-  timeConverter(time);
+  let timeDisplay = timeConverter(time);
+  $('#laps').append(`<p>Lap ${lap}: ${timeDisplay}</p>`);
   lap++;
-
-  console.log(
-    time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds()
-  );
 }
 function count() {
-  time++;
-  var nowTime = timeConverter(time);
-  $("#display").text(nowTime);
-
   //  TODO: increment time by 1, remember we cant use "this" here.
   //  TODO: Get the current time, pass that into the timeConverter function,
   //        and save the result in a variable.
   //  TODO: Use the variable you just created to show the converted time in the "display" div.
+  time++;
+  let timeDisplay = timeConverter(time);
+  $('#display').text(timeDisplay);
 }
 
 //  THIS FUNCTION IS DONE FOR US!
@@ -72,14 +65,14 @@ function timeConverter(t) {
   var seconds = t - minutes * 60;
 
   if (seconds < 10) {
-    seconds = "0" + seconds;
+    seconds = '0' + seconds;
   }
 
   if (minutes === 0) {
-    minutes = "00";
+    minutes = '00';
   } else if (minutes < 10) {
-    minutes = "0" + minutes;
+    minutes = '0' + minutes;
   }
 
-  return minutes + ":" + seconds;
+  return minutes + ':' + seconds;
 }
