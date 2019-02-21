@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Pangram</h1>
+    <p>The quick brown fox jumps over the lazy dog.</p>
+    <script>
+      function isPangram(str) {
+        let letters = [];
+        var strArray = str.toLowerCase().split("");
+        // remove spaces and punctuation
+        for (var i = 0; i < strArray.length; i++) {
+          if (
+            strArray[i] === " " ||
+            strArray[i] === "." ||
+            strArray[i] === ","
+          ) {
+            strArray.splice(i, 1);
+          }
+        }
+        // if not a duplicate, push to letters array
+        for (var i = 0; i < strArray.length; i++) {
+          if (!letters.includes(strArray[i])) {
+            letters.push(strArray[i]);
+          }
+        }
+        console.log(strArray);
+        return letters.length === 26 ? true : false;
+      }
+
+      // console.log(isPangram("The quick brown fox jumps over the lazy dog."));
+      // console.log(
+      //   isPangram(
+      //     "Being bounced around quickly annoyed the disheveled taxi drivers."
+      //   )
+      // );
+      // console.log(isPangram("Glib jocks quiz nymph to vex dwarf."));
+      console.log(isPangram("My jocks box, get hard, unzip, quiver flow."));
+      // console.log(isPangram("Woven silk pyjamas exchanged for blue quartz."));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+body {
+  align-items: center;
+  background: url("../images/background.jpg");
+  background-size: cover;
+  display: flex;
+  font-family: "Walter Turncoat", cursive;
+  font-size: 10px;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+main {
+  background: white;
+  background-image: url("../images/dog.png");
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 500px;
+  height: 500px;
+  padding: 50px;
+  transition: all 0.4s ease;
+}
+
+h1 {
+  font-size: 4em;
+  margin-bottom: 30px;
+}
+
+h2 {
+  font-size: 3em;
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+
+figure img {
+  max-width: 300px;
+}
+
+figcaption {
+  font-size: 2em;
+  margin-bottom: 30px;
+}
+
+button {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Walter Turncoat", cursive;
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+
+button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+#results ul {
+  margin-bottom: 30px;
+}
+
+#results li {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
