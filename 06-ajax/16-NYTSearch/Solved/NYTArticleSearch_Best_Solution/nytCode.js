@@ -8,7 +8,7 @@ function buildQueryURL() {
 
   // Begin building an object to contain our API call's query parameters
   // Set the API key
-  var queryParams = { "api-key": "b9f91d369ff59547cd47b931d8cbc56b:0:74623931" };
+  var queryParams = { "api-key": "YDCfs2qABWmPGM9bZTyAqMcPFA9OOjZ5" };
 
   // Grab text the user typed into the search input, add to the queryParams object
   queryParams.q = $("#search-term")
@@ -106,7 +106,9 @@ function updatePage(NYTData) {
     }
 
     // Append and log url
-    $articleListItem.append("<a href='" + article.web_url + "'>" + article.web_url + "</a>");
+    $articleListItem.append(
+      "<a href='" + article.web_url + "'>" + article.web_url + "</a>"
+    );
     console.log(article.web_url);
 
     // Append the article

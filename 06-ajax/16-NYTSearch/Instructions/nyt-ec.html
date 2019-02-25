@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NYTimes Search | EC</title>
+    <!-- Bootstrap CSS CDN  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome CSS Icons (For cool glyphicons) -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="jumbotron jumbotron-fluid bg-dark rounded">
+        <div class="container">
+          <h1 class="h3 font-weight-bold text-white text-uppercase text-center">
+            New York Times Search
+          </h1>
+        </div>
+      </header>
+
+      <main>
+        <section class="mb-5">
+          <header
+            class="bg-light border-top border-right border-left rounded-top px-4 py-3"
+          >
+            <h2 class="h6 m-0 font-weight-bold">Search Parameters</h2>
+          </header>
+          <form class="border rounded-bottom p-4">
+            <div class="form-group">
+              <label for="formSearchTerm">Search Term:</label>
+              <input type="text" class="form-control" id="formSearchTerm" />
+            </div>
+            <div class="form-group">
+              <label for="formNumberOfRecords"
+                >Number of Records to Retrieve</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="formNumberOfRecords"
+              />
+            </div>
+            <div class="form-group">
+              <label for="formStartYear"
+                >Start Year:
+                <small class="form-text text-muted">Optional</small></label
+              >
+              <input type="number" class="form-control" id="formStartYear" />
+            </div>
+            <div class="form-group">
+              <label for="formEndYear"
+                >End Year:
+                <small class="form-text text-muted">Optional</small></label
+              >
+              <input type="number" class="form-control" id="formEndYear" />
+            </div>
+            <button id="formSearch" type="submit" class="btn btn-dark">
+              Search
+            </button>
+            <button id="formClear" type="button" class="btn btn-dark">
+              Clear Results
+            </button>
+          </form>
+        </section>
+
+        <section class="mb-5">
+          <header
+            class="bg-light border-top border-right border-left rounded-top px-4 py-3"
+          >
+            <h2 class="h6 m-0 font-weight-bold">Top Articles</h2>
+          </header>
+          <div id="formResults" class="border rounded-bottom p-4"></div>
+        </section>
+      </main>
+
+      <footer class="text-center p-4">
+        Made with lots and lots of 🖤
+      </footer>
+    </div>
+
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Code to the JavaScript File -->
+    <script src="nyt-ec.js"></script>
+  </body>
+</html>

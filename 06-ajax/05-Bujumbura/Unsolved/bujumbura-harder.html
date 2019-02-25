@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bujumbura Data</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>Bujumbura Data</title>
-</head>
+  <body>
+    <!-- Retrieved data will be dumped here -->
+    <h1><span class="city"></span> Weather Details</h1>
+    <p>Wind Speed: <span class="wind"></span></p>
+    <p>Humidity: <span class="humidity"></span>%</p>
+    <p>Temperature (F): <span class="temp"></span>&#176;</p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var ApiKey = "43651cf586fe35d23caacbd3d8e6d5cd";
+      var cityID = "425378";
+      var queryURL =
+        "https://api.openweathermap.org/data/2.5/weather?id=" +
+        cityID +
+        "&APPID=" +
+        ApiKey;
 
-<body>
-  <!-- Retrieved data will be dumped here -->
-  <div class="city"></div>
-  <div class="wind"></div>
-  <div class="humidity"></div>
-  <div class="temp"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // Things to accomplish:
-    // Get an API Key from OpenWeatherMap API
-    // Create an AJAX call to retrieve data Log the data in console
-    // Log the data in HTML
-    // Scream Ushindi (victory in Swahili)! at the top of your lungs
-  </script>
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(response) {
+        function temperatureConverter(valNum) {
+          valNum = parseFloat(valNum);
+          return Math.round((valNum - 273.15) * 1.8 + 32);
+        }
 
-</body>
-
+        $(".city").text(response.name);
+        $(".wind").text(response.wind.speed);
+        $(".humidity").text(response.main.humidity);
+        $(".temp").text(temperatureConverter(response.main.temp));
+      });
+      // Things to accomplish:
+      // Get an API Key from OpenWeatherMap API
+      // Create an AJAX call to retrieve data Log the data in console
+      // Log the data in HTML
+      // Scream Ushindi (victory in Swahili)! at the top of your lungs
+    </script>
+  </body>
 </html>

@@ -39,7 +39,7 @@ const trivia = [
 
 let currentQuestion = 0;
 let startTimer;
-let count = 15;
+let count = 3;
 let userPick;
 let correctAnswer;
 let numRight = 0;
@@ -119,6 +119,7 @@ let loadTimer = function() {
   if (count === 0) {
     numNoAnswer++;
     clearInterval(startTimer);
+    $("#question").hide();
     $("#answer h2").text("Out of time!");
     loadAnswer();
   }
