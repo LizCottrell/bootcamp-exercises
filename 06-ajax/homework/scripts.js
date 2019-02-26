@@ -1,5 +1,5 @@
-var apiKey = "YDCfs2qABWmPGM9bZTyAqMcPFA9OOjZ5";
-var queryURL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${apiKey}`;
+var apiKey = "cPHJBG5W7YeAMoUu72FUXO12yFNCVrsB;
+var queryURL = `http://api.giphy.com/v1/gifs/search?q=funny+cat&api_key=${apiKey}`;
 
 var searchTerm;
 var numberOfRecords;
