@@ -1,99 +1,110 @@
 <!DOCTYPE html>
 <html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>More Properties!</title>
 
-<head>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  </head>
 
-  <meta charset="UTF-8">
-  <title>More Properties!</title>
+  <body>
+    <!-- An utterly ugly form! -->
+    <label for="name-input">Name:</label>
+    <input class="form-control" id="name-input" type="text" />
+    <label for="age-input">Age:</label>
+    <input class="form-control" id="age-input" type="text" />
+    <label for="phone-input">Phone:</label>
+    <input class="form-control" id="phone-input" type="text" />
 
-  <!-- Firebase Reference -->
-  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- Submit Button -->
+    <button id="click-button" type="submit">Submit</button>
 
-</head>
+    <hr />
 
-<body>
+    <!-- Displayed Data -->
+    <div id="displayed-data"></div>
 
-  <!-- An utterly ugly form! -->
-  <label for="name-input">Name:</label>
-  <input class="form-control" id="name-input" type="text">
-  <label for="age-input">Age:</label>
-  <input class="form-control" id="age-input" type="text">
-  <label for="phone-input">Phone:</label>
-  <input class="form-control" id="phone-input" type="text">
+    <!-- ====================================================================== -->
 
-  <!-- Submit Button -->
-  <button id="click-button" type="submit">Submit</button>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <hr>
+    <!-- Script -->
+    <script>
+      // Initialize Firebase and change the values of the config values with your own Firebase config values.
+      var config = {
+        apiKey: "AIzaSyDKp9dV9ufQTSkjxjBbEMURJLQRDmr3vSg",
+        authDomain: "testproject-290fd.firebaseapp.com",
+        databaseURL: "https://testproject-290fd.firebaseio.com",
+        projectId: "testproject-290fd",
+        storageBucket: "testproject-290fd.appspot.com",
+        messagingSenderId: "540813625846"
+      };
 
-  <!-- Displayed Data -->
-  <div id="displayed-data"></div>
+      firebase.initializeApp(config);
 
-  <!-- ====================================================================== -->
+      // Create a variable to reference the database
+      var database = firebase.database();
 
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      // Initial Variables (SET the first set IN FIREBASE FIRST)
+      // Note remember to create these same variables in Firebase!
+      var name = "";
+      var age = "";
+      var phone = "";
 
-  <!-- Script -->
-  <script>
-    // Initialize Firebase and change the values of the config values with your own Firebase config values.
-    var config = {
-      apiKey: "AIzaSyC9QlOZmk3D4Wt8kAVji0-BO4jsYDvwwLY",
-      authDomain: "fir-multiple-properties.firebaseapp.com",
-      databaseURL: "https://fir-multiple-properties.firebaseio.com",
-      storageBucket: "fir-multiple-properties.appspot.com"
-    };
+      // Click Button changes what is stored in firebase
+      $("#click-button").on("click", function(event) {
+        // Prevent the page from refreshing
+        event.preventDefault();
 
-    firebase.initializeApp(config);
+        // Get inputs
+        name = $("#name-input")
+          .val()
+          .trim();
+        age = $("#age-input")
+          .val()
+          .trim();
+        phone = $("#phone-input")
+          .val()
+          .trim();
 
-    // Create a variable to reference the database
-    var database = firebase.database();
-
-    // Initial Variables (SET the first set IN FIREBASE FIRST)
-    // Note remember to create these same variables in Firebase!
-    var name = "";
-    var age = "";
-    var phone = "";
-
-    // Click Button changes what is stored in firebase
-    $("#click-button").on("click", function(event) {
-      // Prevent the page from refreshing
-      event.preventDefault();
-
-      // Get inputs
-      name = $("#name-input").val().trim();
-      age = $("#age-input").val().trim();
-      phone = $("#phone-input").val().trim();
-
-      // Change what is saved in firebase
-      database.ref().set({
-        name: name,
-        age: age,
-        phone: phone
+        // Change what is saved in firebase
+        database.ref().set({
+          name: name,
+          age: age,
+          phone: phone
+        });
       });
-    });
 
-    // Firebase is always watching for changes to the data.
-    // When changes occurs it will print them to console and html
-    database.ref().on("value", function(snapshot) {
+      // Firebase is always watching for changes to the data.
+      // When changes occurs it will print them to console and html
+      database.ref().on(
+        "value",
+        function(snapshot) {
+          // Print the initial data to the console.
+          console.log(snapshot.val());
 
-      // Print the initial data to the console.
-      console.log(snapshot.val());
+          // Log the value of the various properties
+          console.log(snapshot.val().name);
+          console.log(snapshot.val().age);
+          console.log(snapshot.val().phone);
 
-      // Log the value of the various properties
-      console.log(snapshot.val().name);
-      console.log(snapshot.val().age);
-      console.log(snapshot.val().phone);
+          // Change the HTML
+          $("#displayed-data").text(
+            snapshot.val().name +
+              " | " +
+              snapshot.val().age +
+              " | " +
+              snapshot.val().phone
+          );
 
-      // Change the HTML
-      $("#displayed-data").text(snapshot.val().name + " | " + snapshot.val().age + " | " + snapshot.val().phone);
-
-      // If any errors are experienced, log them to console.
-    }, function(errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
-  </script>
-
-</body>
-
+          // If any errors are experienced, log them to console.
+        },
+        function(errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        }
+      );
+    </script>
+  </body>
 </html>

@@ -37,40 +37,40 @@
 
     <!-- Script -->
     <script>
-      //  ============================= START CODING BELOW! =============================================
-
+      //  ============================= START CODING BELOW! ============================================
+      var toDoCount = 0;
       // Create an initial toDoCount variable
       //  On Click event associated with the add-to-do function
       $("#add-to-do").on("click", function(event) {
         // prevent form from submitting
         event.preventDefault();
 
+        // Add to the toDoCount
+        toDoCount++;
+        console.log(toDoCount);
         // Get the to-do "value" from the textbox and store it a variable
-        var toDoCount;
         var toDoItem = $("#to-do").val();
 
         // Create a new variable that will hold a "<p>" tag.
         // Then give it an ID in the following form:
         // "item-4" or "item-3" or "item-99", where the number is equal to toDoCount.
         // Then set the to-do "value" as text to this <p> element.
-        var newDiv = $(`<p id="item-${toDoCount}">${toDoItem}</p>`);
-
         // Create a button with unique identifiers based on what number it is in the list. Again use jQuery to do this.
         // Give your button a data attribute called data-to-do and a class called "checkbox".
         // Lastly add the letter X inside.
-        var newButton = $(
-          `<button class="checkbox" data-to-do="${toDoItem}">X</button>`
+        // Append the button to the to do item
+        var newToDo = $(
+          `<p id="item-${toDoCount}">
+            ${toDoItem}
+            <button class="checkbox" data-to-do="${toDoCount}">X</button>
+          </p>`
         );
 
-        // Append the button to the to do item
-        $("#todo-item").append(newButton);
-
         // Add the button and toDoItem to the to-dos div
-        $("#to-dos").append("#todo-item");
+        $("#to-dos").append(newToDo);
 
         // Clear the textbox when done
-
-        // Add to the toDoCount
+        $("#to-do").empty();
       });
 
       //  When a user clicks a check box then delete the specific content
@@ -79,6 +79,9 @@
       $(document.body).on("click", ".checkbox", function() {
         // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
         // Select and Empty the specific <p> element that previously held the to do item number.
+        toDoNumber = $(this).attr("data-to-do");
+        console.log(toDoNumber);
+        $("#item-" + toDoNumber).remove();
       });
     </script>
   </body>

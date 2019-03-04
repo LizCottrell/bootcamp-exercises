@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To Do App!</title>
+
+    <style>
+      #todo-item {
+        font-weight: 700;
+        font-size: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Title -->
+    <h1>My To Do's!</h1>
+
+    <!-- Input Form -->
+    <form>
+      <span id="todo-item"
+        >To Do Item: <input id="to-do" type="text"/><input
+          id="add-to-do"
+          value="Add Item"
+          type="submit"
+      /></span>
+    </form>
+
+    <hr />
+
+    <!-- To-Do List -->
+    <div id="to-dos"></div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script>
+      let toDoCount = 0;
+
+      function readCookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) === " ") c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+          }
+        }
+        return null;
+      }
+
+      let allToDos = JSON.parse(readCookie("todos")) || [];
+
+      // onReady
+      $(document).ready(function() {
+        // load old to-dos from cookie
+        if (allToDos.length > 0) {
+          for (let i = 0; i < allToDos.length; i++) {
+            const displayToDo = $(
+              `<p id="item-${toDoCount}">
+                ${allToDos[i]}
+                <button class="checkbox" data-to-do="${toDoCount}">X</button>
+              </p>`
+            );
+            $("#to-dos").append(displayToDo);
+            toDoCount++;
+          }
+        }
+
+        // onClicks
+        $("#add-to-do").on("click", function(event) {
+          event.preventDefault();
+          const toDoItem = $("#to-do")
+            .val()
+            .trim();
+          const displayToDo = $(
+            `<p id="item-${toDoCount}">
+            ${toDoItem}
+            <button class="checkbox" data-to-do="${toDoCount}">X</button>
+          </p>`
+          );
+          $("#to-dos").append(displayToDo);
+          $("#to-do").empty();
+          allToDos.push(toDoItem);
+          console.log(allToDos);
+          toDoCount++;
+
+          // store to cookie + local storage
+          var json_str = JSON.stringify(allToDos);
+          document.cookie = "todos=" + json_str;
+        });
+
+        $(document.body).on("click", ".checkbox", function() {
+          toDoNumber = $(this).attr("data-to-do");
+          $("#item-" + toDoNumber).remove();
+          // remove
+        });
+      });
+    </script>
+  </body>
+</html>

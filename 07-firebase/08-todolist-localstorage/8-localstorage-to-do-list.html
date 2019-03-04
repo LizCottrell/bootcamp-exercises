@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>To Do App!</title>
+
+    <style>
+      #todo-item {
+        font-weight: 700;
+        font-size: 2em;
+      }
+    </style>
+    <!-- Noting that this tutorial is helpful for getting unique IDs for each TODO: http://archive.oreilly.com/oreillyschool/courses/javascript2/DeletingTodoListItems.html-->
+  </head>
+
+  <body>
+    <!-- Title -->
+    <h1>My To Do's!</h1>
+
+    <!-- Input Form -->
+    <form>
+      <span id="todo-item"
+        >To Do Item: <input id="to-do" type="text"/><input
+          id="add-to-do"
+          value="Add Item"
+          type="submit"
+      /></span>
+    </form>
+
+    <hr />
+
+    <!-- To-Do List -->
+    <div id="to-dos"></div>
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Script -->
+    <script>
+      let allToDos = JSON.parse(localStorage.getItem("todos")) || [];
+
+      function updateLocalStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      // onReady
+      $(document).ready(function() {
+        // load any to-dos from local storage
+        if (allToDos.length > 0) {
+          for (let i = 0; i < allToDos.length; i++) {
+            const displayToDo = $(
+              `<p id="item-${allToDos[i].id}">
+                ${allToDos[i].text}
+                <button class="checkbox" data-to-do="${
+                  allToDos[i].id
+                }">X</button>
+              </p>`
+            );
+            $("#to-dos").append(displayToDo);
+          }
+        }
+
+        // onclick of Add Item button
+        $("#add-to-do").on("click", function(event) {
+          event.preventDefault();
+          const id = new Date().getTime();
+          const toDoItem = $("#to-do")
+            .val()
+            .trim();
+          const displayToDo = $(
+            `<p id="item-${id}">
+            ${toDoItem}
+            <button class="checkbox" data-to-do="${id}">X</button>
+          </p>`
+          );
+          // update display
+          $("#to-dos").append(displayToDo);
+          $("#to-do").val("");
+          // update global variables
+          allToDos.push({
+            id: id,
+            text: toDoItem
+          });
+          // update local storage
+          updateLocalStorage("todos", allToDos);
+        });
+
+        // onclick of Delete Item button
+        $(document.body).on("click", ".checkbox", function() {
+          id = parseInt($(this).attr("data-to-do"));
+          console.log("id: ", id);
+          // update display
+          $("#item-" + id).remove();
+          // update global variables
+          var index = allToDos.findIndex(i => i.id === id);
+          if (index > -1) {
+            allToDos.splice(index, 1);
+          }
+          // update local storage
+          updateLocalStorage("todos", allToDos);
+        });
+      });
+    </script>
+  </body>
+</html>
