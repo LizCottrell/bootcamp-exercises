@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Firebase Train Activity Homework</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
+      rel="stylesheet"
+    />
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <style>
+      body {
+        font-family: "Source Code Pro", monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"
+        ><h1 class="h6">
+          Any Port in a Storm
+          <span class="text-muted small d-block">Ahoy hoy.</span>
+        </h1>
+      </a>
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Abandon Ship</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav
+          class="col-md-3 d-none d-md-block pt-3 px-4 bg-light sidebar"
+          style="height: 100vh"
+        >
+          <div class="sidebar-sticky">
+            <h2 class="h5">Add Ship</h2>
+            <hr class="mb-4" />
+
+            <form class="needs-validation" novalidate="">
+              <div class="mb-3">
+                <label for="name">Boat name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder=""
+                  value=""
+                  required=""
+                />
+                <div class="invalid-feedback">
+                  Valid boat name is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="destination">Destination</label>
+                <input
+                  type="destination"
+                  class="form-control"
+                  id="destination"
+                  placeholder=""
+                />
+                <div class="invalid-feedback">
+                  Please enter a valid destination.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="firstTrainTime">First Train Time</label>
+                <input
+                  type="time"
+                  min="0"
+                  step="1"
+                  class="form-control"
+                  id="firstTrainTime"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="frequency"
+                  >Frequency
+                  <span class="text-muted small d-block">(min)</span></label
+                >
+                <input
+                  type="time"
+                  class="form-control"
+                  id="frequency"
+                  placeholder="01/08/1989"
+                  required=""
+                />
+                <div class="invalid-feedback">
+                  Please enter a frequency.
+                </div>
+              </div>
+
+              <hr class="mb-4" />
+              <button
+                id="submit-button"
+                class="btn btn-primary btn-lg btn-block"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-9 pt-3 px-4">
+          <h2 class="h5 mb-3">Current Employees</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th class="py-4">Train Name</th>
+                  <th class="py-4">Destination</th>
+                  <th class="py-4">Frequency (min)</th>
+                  <th class="py-4">Next Arrival</th>
+                  <th class="py-4">Minutes Away</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+      integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>

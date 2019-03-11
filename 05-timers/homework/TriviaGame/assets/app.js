@@ -39,7 +39,7 @@ const trivia = [
 
 let currentQuestion = 0;
 let startTimer;
-let count = 3;
+let count = 15;
 let userPick;
 let correctAnswer;
 let numRight = 0;
@@ -74,7 +74,7 @@ let loadQuestion = function(data) {
       `<li><button id="option-${i}">${data.options[i]}</button></li>`
     );
   }
-  startTimer = setInterval(loadTimer, 1000);
+  startTimer = setInterval(loadTimer, 15000);
 
   $("#start").hide();
   $("#question").show();

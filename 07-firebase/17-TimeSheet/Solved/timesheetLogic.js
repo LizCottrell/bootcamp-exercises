@@ -24,10 +24,21 @@ $("#add-employee-btn").on("click", function(event) {
   event.preventDefault();
 
   // Grabs user input
-  var empName = $("#employee-name-input").val().trim();
-  var empRole = $("#role-input").val().trim();
-  var empStart = moment($("#start-input").val().trim(), "MM/DD/YYYY").format("X");
-  var empRate = $("#rate-input").val().trim();
+  var empName = $("#employee-name-input")
+    .val()
+    .trim();
+  var empRole = $("#role-input")
+    .val()
+    .trim();
+  var empStart = moment(
+    $("#start-input")
+      .val()
+      .trim(),
+    "MM/DD/YYYY"
+  ).format("X");
+  var empRate = $("#rate-input")
+    .val()
+    .trim();
 
   // Creates local "temporary" object for holding employee data
   var newEmp = {
@@ -72,7 +83,9 @@ database.ref().on("child_added", function(childSnapshot) {
   console.log(empRate);
 
   // Prettify the employee start
-  var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
+  var empStartPretty = moment()
+    .unix(empStart)
+    .format("MM/DD/YYYY");
 
   // Calculate the months worked using hardcore math
   // To calculate the months worked

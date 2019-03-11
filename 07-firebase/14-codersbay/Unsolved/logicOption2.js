@@ -35,12 +35,11 @@ var highBidder = initialBidder;
 database.ref().on(
   "value",
   function(snapshot) {
-    console.log(snapshot.val());
-    if (snapshot.val().length > 0) {
-      highPrice = snapshot.val().highPrice;
-      highBidder = snapshot.val().highBidder;
-      $("#highest-bidder").text(snapshot.val().name);
-      $("#highest-price").text(snapshot.val().price);
+    if (Object.keys(snapshot.val()).length > 0) {
+      highBidder = snapshot.val().name;
+      highPrice = snapshot.val().price;
+      $("#highest-bidder").text(highBidder);
+      $("#highest-price").text(highPrice);
     } else {
       $("#highest-bidder").text(initialBidder);
       $("#highest-price").text(initialBid);
@@ -73,8 +72,6 @@ $("#submit-bid").on("click", function(event) {
   price = $("#bidder-price")
     .val()
     .trim();
-  console.log("highPrice: ", highPrice);
-  console.log("highBidder: ", highBidder);
   if (highPrice > price) {
     alert("Your bid was too low. Try again.");
   } else {

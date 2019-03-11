@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>Example of Time Telling</title>
+
+    <!-- Added Moment JS -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Script -->
+
+    <script>
+      // Assume the following situations.
+
+      // (TEST 1)
+      // First Train of the Day is 3:00 AM
+      // Assume Train comes every 3 minutes.
+      // Assume the current time is 3:16 AM....
+      // What time would the next train be...? (Use your brain first)
+      // It would be 3:18 -- 2 minutes away
+
+      // (TEST 2)
+      // First Train of the Day is 3:00 AM
+      // Assume Train comes every 7 minutes.
+      // Assume the current time is 3:16 AM....
+      // What time would the next train be...? (Use your brain first)
+      // It would be 3:21 -- 5 minutes away
+
+      // (ACTUAL PROBLEM)
+      // First Train of the Day is 3:00 AM
+      // Assume Train comes every 17 minutes.
+      // Assume the current time is 7:12 PM....
+      // What time would the next train be...?
+
+      // ==========================================================
+
+      // (Math)
+      // set current time to 7:12PM
+      // first train is 3pm
+      // (end time - start time) % trainfrequency
+      var trainFrequency = 17;
+      var currentTime = moment("7:12 PM", "LT");
+      var startTime = moment("03:00 AM", "LT");
+      var diffInMin = currentTime.diff(startTime, "minutes");
+      var modulo = diffInMin % trainFrequency;
+
+      console.log("currentTime: ", currentTime);
+      console.log("startTime", startTime);
+      console.log("difference in minutes", diffInMin);
+      console.log("answer: ", trainFrequency - modulo);
+    </script>
+  </body>
+</html>
