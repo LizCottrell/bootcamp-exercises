@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Firebase Rock Paper Scissors Activity Homework</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
+      rel="stylesheet"
+    />
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <style>
+      body {
+        font-family: "Source Code Pro", monospace;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"
+        ><h1 class="h6">
+          Rock, Paper, Scissors
+        </h1>
+      </a>
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <header
+      id="header"
+      class="header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center"
+    >
+      <form id="player-form" class="form-inline justify-content-center">
+        <div class="form-group mx-sm-3 mb-2">
+          <label class="h3 pr-4" for="name">Name</label>
+          <input type="text" class="form-control" id="name" />
+        </div>
+        <button id="start-game" type="button" class="btn btn-primary mb-2">
+          Start Game
+        </button>
+      </form>
+      <p id="player-turn"></p>
+    </header>
+
+    <div class="container">
+      <div class="card-deck mb-3 text-center">
+        <div id="player-1" class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="name my-0 font-weight-normal">Waiting for Player...</h4>
+          </div>
+          <div class="card-body flex-column d-flex justify-content-between">
+            <ul class="buttons list-unstyled mt-3 mb-4"></ul>
+            <p>
+              Wins: <span class="wins">0</span> | Losses:
+              <span class="losses">0</span>
+            </p>
+          </div>
+        </div>
+
+        <div id="result" class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title card-name"></h2>
+          </div>
+        </div>
+
+        <div id="player-2" class="card mb-4 shadow-sm">
+          <div class="card-header">
+            <h4 class="name my-0 font-weight-normal">Waiting for Player...</h4>
+          </div>
+          <div class="card-body flex-column d-flex justify-content-between">
+            <ul class="buttons list-unstyled mt-3 mb-4"></ul>
+            <p>
+              Wins: <span class="wins">0</span> | Losses:
+              <span class="losses">0</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <textarea class="form-control"></textarea>
+        <form class="form-inline">
+          <div class="form-group mx-sm-10 mb-2">
+            <label class="sr-only" for="chat">Chat</label>
+            <input type="text" class="form-control" id="chat" />
+          </div>
+          <button type="button" class="btn btn-primary mb-2">
+            Send
+          </button>
+        </form>
+      </div>
+
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <small class="d-block mb-3 text-muted">© 2017-2019</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Cool stuff</a></li>
+              <li><a class="text-muted" href="#">Random feature</a></li>
+              <li><a class="text-muted" href="#">Team feature</a></li>
+              <li><a class="text-muted" href="#">Stuff for developers</a></li>
+              <li><a class="text-muted" href="#">Another one</a></li>
+              <li><a class="text-muted" href="#">Last time</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Resource</a></li>
+              <li><a class="text-muted" href="#">Resource name</a></li>
+              <li><a class="text-muted" href="#">Another resource</a></li>
+              <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Team</a></li>
+              <li><a class="text-muted" href="#">Locations</a></li>
+              <li><a class="text-muted" href="#">Privacy</a></li>
+              <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+      integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+    <script src="rps-scripts.js"></script>
+  </body>
+</html>

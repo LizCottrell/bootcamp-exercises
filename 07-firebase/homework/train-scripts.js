@@ -17,18 +17,18 @@ $("#submit-button").on("click", function() {
   var name = $("#name")
     .val()
     .trim();
-  var role = $("#destination")
+  var destination = $("#destination")
     .val()
     .trim();
-  var firstTrainTime = $("#firstTrainTime")
-    .val()
-    .trim();
-  var frequency = moment(
-    $("#frequency")
+  var firstTrainTime = moment(
+    $("#firstTrainTime")
       .val()
       .trim(),
-    "YYYY-MM-DD"
+    "HH:mm A"
   ).format("X");
+  var frequency = $("#frequency")
+    .val()
+    .trim();
 
   database.ref().push({
     name: name,
@@ -49,9 +49,14 @@ database.ref().on(
   function(snapshot) {
     const sv = snapshot.val();
 
-    var firstTrain = moment.unix(sv.firstTrainTime).format("MM-DD-YYYY");
-    var minAway = moment().diff(moment(sv.firstTrainTime, "X"), "months");
-    var nextArrival = monthsWorked * sv.rate;
+    console.log("snapshot frequency: ", sv.frequency);
+    console.log("snapshot first train: ", sv.firstTrainTime);
+
+    var diffInMin = moment().diff(moment(sv.firstTrainTime, "X"), "minutes");
+    var minAway = sv.frequency - (diffInMin % sv.frequency);
+    var nextArrival = moment(sv.firstTrainTime, "X")
+      .add(diffInMin + minAway, "minutes")
+      .format("LT");
 
     $("#table-body").append(`
     <tr>
