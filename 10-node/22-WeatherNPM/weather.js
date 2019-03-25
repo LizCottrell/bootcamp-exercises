@@ -2,8 +2,10 @@
 var weather = require("weather-js");
 
 // Then we use the package to search for the weather at a location
-weather.find({ search: "Anchorage, AK", degreeType: "F" }, function(err, result) {
-
+weather.find({ search: "Philadelphia, PA", degreeType: "F" }, function(
+  err,
+  result
+) {
   // If there is an error log it.
   if (err) {
     console.log(err);
@@ -14,5 +16,4 @@ weather.find({ search: "Anchorage, AK", degreeType: "F" }, function(err, result)
   // We use the JSON.stringify argument of "2" to make the format pretty.
   // See link here: http://stackoverflow.com/questions/4810841/how-can-i-pretty-print-json-using-javascript
   console.log(JSON.stringify(result, null, 2));
-
 });
