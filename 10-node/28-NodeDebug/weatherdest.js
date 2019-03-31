@@ -12,7 +12,7 @@ var NodeGeocoder = require("node-geocoder");
 // Replace with your mapquest consumer API key
 var options = {
   provider: "mapquest",
-  apiKey: "YOUR-MAPQUEST-API-CONSUMER-KEY"
+  apiKey: "SzNdueHF88ipI5fXWA6ryjyMSgjN64BW"
 };
 
 var geocoder = NodeGeocoder(options);
@@ -50,14 +50,15 @@ geocoder.geocode(address, function(err, data) {
 
   // Run the weather package to search by either zip or city.
   weather.find({ search: search, degreeType: "F" }, function(err, result) {
-
     debugger;
 
     // If there is insufficient data, notify the user.
     if (err) {
       console.log("\r\n\r\n\r\n");
 
-      console.log("Sorry we don't have enough data on that location! Try somewhere else.");
+      console.log(
+        "Sorry we don't have enough data on that location! Try somewhere else."
+      );
 
       console.log("\r\n\r\n\r\n");
 
@@ -69,7 +70,9 @@ geocoder.geocode(address, function(err, data) {
 
     console.log("Weather Forecast for: " + search);
 
-    console.log("Current Temperature: " + result[0].current.temperature + "° F");
+    console.log(
+      "Current Temperature: " + result[0].current.temperature + "° F"
+    );
 
     console.log("Sky: " + result[0].current.skytext);
 
