@@ -99,7 +99,11 @@ function promptPlayerCreation() {
         name: "offense",
         message: "Player's Offensive Ability: ",
         validate: function(value) {
-          if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 10) {
+          if (
+            isNaN(value) === false &&
+            parseInt(value) > 0 &&
+            parseInt(value) <= 10
+          ) {
             return true;
           }
           return false;
@@ -107,13 +111,13 @@ function promptPlayerCreation() {
       },
       {
         name: "defense",
-        message: "Player's Defensive Ability: ",
-        validate: function(value) {
-          if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 10) {
-            return true;
-          }
-          return false;
-        }
+        message: "Player's Defensive Ability: "
+        // validate: function(value) {
+        //   if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 10) {
+        //     return true;
+        //   }
+        //   return false;
+        // }
       }
     ])
     .then(function(answers) {
@@ -143,7 +147,9 @@ function promptPlayerCreation() {
 function playRound() {
   // Adds one to `roundNumber` and prints the current round of the game
   roundNumber++;
-  console.log("\n----------\nplayRound: ROUND " + roundNumber + "\n----------\n");
+  console.log(
+    "\n----------\nplayRound: ROUND " + roundNumber + "\n----------\n"
+  );
 
   // Finds two random numbers between 1 and 20 to compare the starter objects' stats to
   var offenseRandom = Math.floor(Math.random() * 20) + 1;
@@ -244,7 +250,9 @@ function endGame() {
 
   // If the score was greater than 0, prints the winning message and increases starters stats
   if (score > 0) {
-    console.log("Good game, everyone!\nYour current starters' stats have improved!");
+    console.log(
+      "Good game, everyone!\nYour current starters' stats have improved!"
+    );
     for (var i = 0; i < starters.length; i++) {
       starters[i].goodGame();
     }
@@ -252,7 +260,9 @@ function endGame() {
 
   // If the score was less than 0, prints the losing message and decreases starters stats
   if (score < 0) {
-    console.log("That was a poor performance!\nYour current starters' stats have decreased!");
+    console.log(
+      "That was a poor performance!\nYour current starters' stats have decreased!"
+    );
     for (var i = 0; i < starters.length; i++) {
       starters[i].badGame();
     }

@@ -8,11 +8,18 @@ function Programmer(name, position, age, language) {
   this.age = age;
   this.language = language;
 }
-
 // creates the printInfo method and applies it to all programmer objects
 Programmer.prototype.printInfo = function() {
-  console.log("Name: " + this.name + "\nPosition: " + this.position +
-  "\nAge: " + this.age + "\nLanguages: " + this.language);
+  console.log(
+    "Name: " +
+      this.name +
+      "\nPosition: " +
+      this.position +
+      "\nAge: " +
+      this.age +
+      "\nLanguages: " +
+      this.language
+  );
   console.log("---------------");
 };
 
@@ -27,38 +34,43 @@ var askQuestion = function() {
     console.log("NEW PROGRAMMER");
     // runs inquirer and asks the user a series of questions whose replies are
     // stored within the variable answers inside of the .then statement
-    inquirer.prompt([
-      {
-        name: "name",
-        message: "What is your name?"
-      }, {
-        name: "position",
-        message: "What is your current position?"
-      }, {
-        name: "age",
-        message: "How old are you?"
-      }, {
-        name: "language",
-        message: "What is your favorite programming language?"
-      }
-    ]).then(function(answers) {
-      // initializes the variable newProgrammer to be a programmer object which will
-      // take in all of the user's answers to the questions above
-      var newProgrammer = new Programmer(
-        answers.name,
-        answers.position,
-        answers.age,
-        answers.language);
-      // pushes newProgrammer object into our array
-      programmerArray.push(newProgrammer);
-      // add one to count to increment our recursive loop by one
-      count++;
-      // run the askquestion function again so as to either end the loop or ask the questions again
-      askQuestion();
-    });
+    inquirer
+      .prompt([
+        {
+          name: "name",
+          message: "What is your name?"
+        },
+        {
+          name: "position",
+          message: "What is your current position?"
+        },
+        {
+          name: "age",
+          message: "How old are you?"
+        },
+        {
+          name: "language",
+          message: "What is your favorite programming language?"
+        }
+      ])
+      .then(function(answers) {
+        // initializes the variable newProgrammer to be a programmer object which will
+        // take in all of the user's answers to the questions above
+        var newProgrammer = new Programmer(
+          answers.name,
+          answers.position,
+          answers.age,
+          answers.language
+        );
+        // pushes newProgrammer object into our array
+        programmerArray.push(newProgrammer);
+        // add one to count to increment our recursive loop by one
+        count++;
+        // run the askquestion function again so as to either end the loop or ask the questions again
+        askQuestion();
+      });
     // else statement which runs a for loop that will execute .printInfo() for each object inside of our array
-  }
-  else {
+  } else {
     for (var x = 0; x < programmerArray.length; x++) {
       programmerArray[x].printInfo();
     }

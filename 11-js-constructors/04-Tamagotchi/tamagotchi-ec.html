@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Instructions
+      // ----------
+      // BONUS: Make it so your Tamagotchis run off of user-input from the command line. It may sound easy at first, but this can actually be quite challenging. We will be going over this in more detail during the next class.
+
+      function DigitalPet() {
+        this.hungry = false;
+        this.sleepy = false;
+        this.bored = true;
+        this.age = 0;
+        this.feed = () => {
+          if (this.hungry === true) {
+            console.log(`That was yummy!`);
+            this.hungry === false;
+            this.sleepy === true;
+          } else {
+            console.log(`No thanks! I'm full.`);
+          }
+        };
+        this.sleep = () => {
+          if (this.sleepy === true) {
+            console.log(`Zzzzzzzz`);
+            this.sleepy === false;
+            this.bored === true;
+            increaseAge();
+          } else {
+            console.log(`No way! I'm not tired.`);
+          }
+        };
+        this.play = () => {
+          if (this.bored === true) {
+            console.log(`Yay! Let's play!`);
+            this.bored === false;
+            this.hungry === true;
+          } else {
+            console.log(`Not right now. Later?`);
+          }
+        };
+        this.increaseAge = () => {
+          this.age++;
+          console.log(`Happy Birthday to me! I am ${this.age} old!`);
+        };
+      }
+
+      var Dog = new DigitalPet();
+      Dog.outside = false;
+      Dog.bark = () => {
+        console.log("Bruff! Bruff!");
+      };
+      Dog.goOutside = () => {
+        if (this.outside === false) {
+          this.outside === true;
+          console.log("Yay! I love the outdoors!");
+          this.bark();
+        } else {
+          console.log("We're already outside though...");
+        }
+      };
+      Dog.goInside = () => {
+        if (this.outside === true) {
+          this.outside === false;
+          console.log("Do we have to? Fine...");
+          this.bark();
+        } else {
+          console.log("I'm already inside...");
+        }
+      };
+
+      var Cat = new DigitalPet();
+      Cat.houseCondition = 100;
+      Cat.meow = () => {
+        console.log("Murrr! MURRRROWW?");
+      };
+      Cat.destroyFurniture = () => {
+        if (this.houseCondition <= 0) {
+          console.log("Nothing left to destroy..");
+        } else {
+          this.houseCondition -= 10;
+          this.bored = false;
+          console.log("MUAHAHAHAHA! TAKE THAT FURNITURE!");
+        }
+      };
+      Cat.buyNewFurtniture = () => {
+        this.houseCondition += 50;
+        console.log("Are you sure about that?");
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+
+          name: Scrubs
+          genre(s): Drama, Comedy, Medical
+          average rating: 8.8
+          network name: ABC
+          summary: <p>Fresh out of medical school, new doctors John "J.D." Dorian, his best friend Christopher Turk, and Elliot Reid start their internship at Sacred Heart Hospital. There, they meet the harsh Chief of Medicine Dr. Bob Kelso, J.D.'s reluctant mentor Dr. Perry Cox, nurse Carla Espinosa, and the deceitful and prankish Janitor. Also at the hospital are the wide range of personalities of Sacred Heart's staff, including the religious nurse Laverne Roberts, incompetent lawyer Ted Buckland, and spiteful board member Jordan Sullivan who also happens to be Cox's ex-wife. Other interns make the cut, such as the high-fiving Todd Quinlan and nervous Doug Murphy. Over the next 9 years they face personal and professional highs and lows, realizing that they can't make it through life - much less a hectic job as a doctor - on their own.</p>
+          ---------------------------
+        
+          ---------------------------
+          name: Scrubs
+          genre(s): Drama, Comedy, Medical
+          average rating: 8.8
+          network name: ABC
+          summary: <p>Fresh out of medical school, new doctors John "J.D." Dorian, his best friend Christopher Turk, and Elliot Reid start their internship at Sacred Heart Hospital. There, they meet the harsh Chief of Medicine Dr. Bob Kelso, J.D.'s reluctant mentor Dr. Perry Cox, nurse Carla Espinosa, and the deceitful and prankish Janitor. Also at the hospital are the wide range of personalities of Sacred Heart's staff, including the religious nurse Laverne Roberts, incompetent lawyer Ted Buckland, and spiteful board member Jordan Sullivan who also happens to be Cox's ex-wife. Other interns make the cut, such as the high-fiving Todd Quinlan and nervous Doug Murphy. Over the next 9 years they face personal and professional highs and lows, realizing that they can't make it through life - much less a hectic job as a doctor - on their own.</p>
+          ---------------------------
+        
+          ---------------------------
+          name: ALF
+          genre(s): Comedy, Family, Science-Fiction
+          average rating: 7.2
+          network name: NBC
+          summary: <p>One starry night in 1986, the Tanner family get an unexpected houseguest - a furry, four-foot-high Alien Life Form they call <b>ALF</b>, who quickly becomes part of the family.</p>
+          ---------------------------
+        
