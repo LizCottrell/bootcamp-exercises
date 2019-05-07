@@ -14,7 +14,7 @@ connection.connect(function(err) {
   runBamazon();
 });
 
-function runBamazon() {
+function loadProducts() {
   const query = "SELECT * FROM products;"
   connection.query(query, function(err, res) {
     console.log('\n');
@@ -23,11 +23,15 @@ function runBamazon() {
       console.log(`There are no products currently. Try again later.`)
     }
     console.log('LIST OF PRODUCTS: \n----------------\nID | ITEM | CATEGORY | PRICE\n----------------');
-    res.map(product => console.log(`${product.item_id} | ${product.product_name} | ${product.department_name} | ${product.price}`))
+    res.map(product => console.log(`${product.item_id} | ${product.product_name} | ${product.department_name} | $${product.price}`))
     console.log('\n');
-
-    customerFlow();
   });
+}
+
+
+function runBamazon() {
+    loadProducts();
+    customerFlow();
 }
 
 function customerFlow(){
@@ -57,7 +61,7 @@ function customerFlow(){
         if (res[0].stock_quantity < answers.amount) {
           console.log("Insufficient quantity! Try again.");
         } else {
-          updateStock(answers.amount);
+          updateStock(answers);
         }
         console.log('\n');
         runBamazon();
@@ -68,133 +72,21 @@ function customerFlow(){
 // This means updating the SQL database to reflect the remaining quantity.
 // Once the update goes through, show the customer the total cost of their purchase.
 
-function updateStock(amount) {
-  const query = "SELECT artist, COUNT(*) AS totalSongs FROM topSongs  GROUP BY artist HAVING COUNT(*) > 1 ORDER BY totalSongs ASC;"
-
-  connection.query(query, function(err, res) {
-      console.log('\n');
-      if (err) throw err;
-      if (res.length === 0) {
-        console.log(`There are no artists in the top 5000 list with more than one hit`)
-      }
-      res.map(song => console.log(`${song.artist} | ${song.totalSongs}`))
-      console.log('\n');
-      runSearch();
+function updateStock(response) {
+  connection.query(
+    "UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?",
+    [response.amount, response.item_id],
+    function(err, res) {
+      // Let the user know the purchase was successful, re-run loadProducts
+      console.log(`\nSuccessfully purchased ${response.amount} units of item ${response.item_id}!`);
     }
-  )
-
-}
-
-function getSongsByArtist() {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "artist",
-        message: "Enter the name of the artist",
-      }
-    ])
-    .then(answer => {
-      const query = "SELECT * FROM topSongs WHERE ?"; 
-      const param = { artist: answer.artist };
-
-      connection.query(query, param, function(err, res) {
-          console.log('\n');
-          if (err) throw err;
-          if (res.length === 0) {
-            console.log(`This artist does not have a top 5000 song`)
-          }
-          res.map(song => console.log(`${song.position} | ${song.artist} | ${song.song}`))
-          console.log('\n');
-          runSearch();
-        }
-      )
-    });
-}
-
-function getDuplicateArtists() {
-  const query = "SELECT artist, COUNT(*) AS totalSongs FROM topSongs  GROUP BY artist HAVING COUNT(*) > 1 ORDER BY totalSongs ASC;"
-
-  connection.query(query, function(err, res) {
-      console.log('\n');
-      if (err) throw err;
-      if (res.length === 0) {
-        console.log(`There are no artists in the top 5000 list with more than one hit`)
-      }
-      res.map(song => console.log(`${song.artist} | ${song.totalSongs}`))
-      console.log('\n');
-      runSearch();
+  );
+  connection.query(
+    "SELECT * FROM products WHERE ?;",
+    { item_id:response.item_id },
+    function(err, res) {
+      console.log(res)
+      console.log(`\nThere are now only ${res[0].stock_quantity} ${res[0].product_name} left!`);
     }
-  )
-}
-
-function getRange() {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "start",
-        message: "Enter the starting position of the range",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
-      },
-      {
-        type: "input",
-        name: "end",
-        message: "Enter the end position",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
-      }
-    ])
-    .then(answer => {
-      const query = "SELECT * FROM topSongs WHERE position BETWEEN ? AND ?;"; 
-      const param = [ answer.start, answer.end ];
-
-      connection.query(query, param, function(err, res) {
-          console.log('\n');
-          if (err) throw err;
-          if (res.length === 0) {
-            console.log(`This range is not valid`)
-          }
-          res.map(song => console.log(`${song.position} | ${song.artist} | ${song.song}`))
-          console.log('\n');
-          runSearch();
-        }
-      )
-    });
-}
-
-function getSongs() {
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "song",
-        message: "Enter the song",
-      }
-    ])
-    .then(answer => {
-      const query = "SELECT * FROM topSongs WHERE ?"; 
-      const param = { song: answer.song };
-
-      connection.query(query, param, function(err, res) {
-          console.log('\n');
-          if (err) throw err;
-          if (res.length === 0) {
-            console.log(`This song does not exist in the top 5000`)
-          }
-          res.map(song => console.log(`${song.position} | ${song.artist} | ${song.song} | ${song.year}`))
-          console.log('\n');
-          runSearch();
-        }
-      )
-    });
+  );
 }

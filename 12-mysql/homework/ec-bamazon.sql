@@ -23,3 +23,5 @@ VALUES
 ("Possum", "animals", 2, 3), 
 ("Treats", "food", 4, 20), 
 ("Cheese", "food", 3, 32);
+
+SELECT * FROM products;

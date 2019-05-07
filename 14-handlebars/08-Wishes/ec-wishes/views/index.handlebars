@@ -1,0 +1,19 @@
+<div class="container px-2 py-5">
+  <h1>Wishes</h1>
+  <hr>
+  <h3>🦴 Edith's most dreamt-about wishes 🐕</h3>
+
+  <ul class="list-group m-5">
+    {{#each wish}}
+      <li class="list-group-item">{{this.id}} | {{this.wish}}</li>
+    {{/each}}
+  </ul>
+
+  <form class="input-group" action="/" method="POST">
+    <label class="sr-only" for="wish">Make a Wish</label>
+    <input type="text" name="wish" class="form-control" id="wish" placeholder="What does Edith desire?">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit">Make a Wish</button>
+    </div>
+  </form>
+</div>

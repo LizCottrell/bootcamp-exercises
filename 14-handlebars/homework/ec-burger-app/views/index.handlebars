@@ -1,0 +1,48 @@
+<main>
+  <div class="row">
+    <div class="col-md-6 current">
+      <h2>Burgers To Eat</h2>
+      <hr class="w-25">
+
+      <!-- Current Burgers -->
+      <ul class="mb-5">
+        {{#each burgers}}
+          {{#unless devoured}}
+            <li>
+              {{burger_name}}
+              <button data-id="{{id}}" class="devour btn btn-light">Devour</button>
+            </li>
+          {{/unless}}
+        {{/each}}
+      </ul>
+
+    </div>
+    <div class="col-md-6 historic">
+      <h2>Burgers Eaten</h2>
+      <hr class="w-25">
+
+      <!-- Historic Burgers -->
+      <ul class="mb-5">
+        {{#each burgers}}
+          {{#if devoured}}
+            <li>
+              {{burger_name}}
+              <button data-id="{{id}}" class="delete btn btn-light">Delete</button>
+            </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+      
+    </div>
+  </div>
+  <hr class="mb-5">
+  <div class="row">
+    <form id="burger-form" class="input-group mb-5">
+      <label class="sr-only" for="burger-input">Make a Burger</label>
+      <input type="text" name="burger-input" class="form-control" id="burger-input" placeholder="Enter a burger you want to eat!">
+      <div class="input-group-append">
+        <button class="btn btn-success" type="submit">Make a Burger</button>
+      </div>
+    </form>
+  </div>
+</main>

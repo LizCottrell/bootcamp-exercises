@@ -1,0 +1,17 @@
+{
+  "name": "03-seinfeldapp",
+  "version": "1.0.0",
+  "description": "* **Instructions**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ec-seinfeld.js",
+    "watch": "nodemon ec-seinfeld.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.17.1"
+  }
+}

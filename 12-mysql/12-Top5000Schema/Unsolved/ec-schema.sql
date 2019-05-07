@@ -4,7 +4,7 @@ CREATE DATABASE top_songsDB;
 USE top_songsDB;
 
 CREATE TABLE Top5000 (
-  position INT NOT NULL AUTO_INCREMENT,
+  position INT NOT NULL,
   artist VARCHAR(100) NULL,
   song VARCHAR(100) NULL,
   year INT NULL,

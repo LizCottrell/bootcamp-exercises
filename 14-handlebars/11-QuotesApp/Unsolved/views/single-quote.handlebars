@@ -1,0 +1,39 @@
+<h1>Update the quote with an id of {{this.id}}</h1>
+
+<form data-id="{{this.id}}" class="update-form">
+
+  <div class="form-group">
+    <label for="auth">Author:</label>
+    <input type="text" id="auth" name="author" value="{{this.author}}">
+  </div>
+
+  <div class="form-group">
+    <label for="quo">Quote:</label>
+    <textarea id="quo" name="quote" rows="8" cols="40">{{this.quote}}</textarea>
+  </div>
+
+  <button type="submit">Update Quote</button>
+</form>
+
+<script>
+  // Update quote
+  $(".update-form").on("submit", function(event) {
+    event.preventDefault();
+    const id = $("form [data-id]").val().trim();
+
+    const updatedQuote = {
+      author: $("#quo").val().trim().
+      quote: $("#auth").val().trim()
+    };
+
+    $.ajax("/api/" + id, {
+      type: "PUT",
+      data: updatedQuote
+    }).then(
+      function() {
+        console.log("updated id ", id);
+        location.reload();
+      }
+    );
+  });
+</script>

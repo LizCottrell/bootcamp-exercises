@@ -1,0 +1,88 @@
+<div class="container px-2 py-5">
+  <h1>Movies</h1>
+  <hr>
+  <h3>🎞 🦴  Edith's most favorite movies  🐕 🍿</h3>
+
+  <ul class="list-group m-5">
+    {{#each movie}}
+      <li class="list-group-item d-flex justify-content-between  align-items-center"><span>{{this.movie}} </span><button data-movie-id="{{this.id}}" class="delete btn btn-light">❌</button></li>
+    {{/each}}
+  </ul>
+
+  <h4>➕ Add a movie</h4>
+  <form id="create" class="input-group mb-4">
+    <label class="sr-only" for="movie">Add a movie</label>
+    <input type="text" name="movie" class="form-control" id="movie" placeholder="What does Edith want to watch?">
+    <div class="input-group-append">
+      <button class="btn btn-info" type="submit">Add</button>
+    </div>
+  </form>
+
+  <h4>〰️ Update a movie</h4>
+  <form id="update" class="input-group">
+    <label for="select-movie" class="sr-only">Update movie</label>
+    <select class="form-control mr-3" id="select-movie" name="id">
+      {{#each movie}}
+        <option value="{{this.id}}">{{this.movie}}</option>
+      {{/each}}
+    </select>
+    <input type="text" name="movie" class="form-control" id="movie" placeholder="">
+    <div class="input-group-append">
+      <button class="btn btn-info" type="submit">Update</button>
+    </div>
+  </form>
+</div>
+
+
+<script type="text/javascript">
+  // Create movie
+  $("#create").on("submit", function(event) {
+    event.preventDefault();
+    const newMovie = {
+      movie: $("#create [name=movie]").val().trim()
+    };
+
+    $.ajax("/movies/", {
+      type: "POST",
+      data: newMovie
+    }).then(
+      function() {
+        console.log("added new movie");
+        location.reload();
+      }
+    );
+  });
+
+  // Update movie
+  $("#update").on("submit", function(event) {
+    event.preventDefault();
+    const id = $("[name=id]").val().trim();
+
+    const updatedMovie = {
+      movie: $("#update [name=movie]").val().trim()
+    };
+
+    $.ajax("/movies/" + id, {
+      type: "PUT",
+      data: updatedMovie
+    }).then(
+      function() {
+        console.log("updated id ", id);
+        location.reload();
+      }
+    );
+  });
+
+  // Delete movie
+  $(".delete").on("click", function(event) {
+    const id = $(this).data("movie-id");
+    $.ajax("/movies/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted id ", id);
+        location.reload();
+      }
+    );
+  });
+</script>
