@@ -1,50 +1,34 @@
-// *********************************************************************************
-// api-routes.js - this file offers a set of routes for displaying and saving data to the db
-// *********************************************************************************
+var Character = require("../model/character.js");
 
-// Dependencies
-// =============================================================
-var orm = require("../config/orm.js");
-
-
-// Routes
-// =============================================================
 module.exports = function(app) {
 
-  // Search for Specific Character (or all characters) then provides JSON
-  app.get("/api/:characters", function(req, res) {
-
-    // If the user provides a specific character in the URL...
+  app.get("/api/:characters?", function(req, res) {
     if (req.params.characters) {
-
-      // Then display the JSON for ONLY that character.
-      // (Note how we're using the ORM here to run our searches)
-      orm.searchCharacter(req.params.characters, function(data) {
-        res.json(data);
+      Character.findOne({
+        where: {
+          routeName: req.params.characters
+        }
+      }).then(function(results) {
+        res.json(results);
+      });
+    } else {
+      Character.findAll({}).then(function(results) {
+        res.json(results);
       });
     }
-
-    // Otherwise...
-    else {
-      // Otherwise display the data for all of the characters.
-      // (Note how we're using the ORM here to run our searches)
-      orm.allCharacters(function(data) {
-        res.json(data);
-      });
-    }
-
   });
 
-  // If a user sends data to add a new character...
   app.post("/api/new", function(req, res) {
+    var routeName = req.body.name.replace(/\s+/g, "").toLowerCase();
 
-    // Take the request...
-    var character = req.body;
-
-    // Then send it to the ORM to "save" into the DB.
-    orm.addCharacter(character, function(data) {
-      console.log(data);
-    });
-
+    Character.create({
+      routeName: routeName,
+      name: req.body.name,
+      role: req.body.role,
+      age: req.body.age,
+      forcePoints: req.body.forcePoints
+    })
+    
+    res.status(204).end();
   });
 };
